@@ -1,0 +1,35 @@
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+ 
+    <!-- 运动控制插件 -->
+    <gazebo>
+        <plugin
+            filename="ignition-gazebo-diff-drive-system"
+            name="ignition::gazebo::systems::DiffDrive">
+            <left_joint>left_front_wheel_joint</left_joint>
+            <left_joint>left_rear_wheel_joint</left_joint>
+            <right_joint>right_front_wheel_joint</right_joint>
+            <right_joint>right_rear_wheel_joint</right_joint>
+            <wheel_separation>0.4</wheel_separation>
+            <wheel_radius>0.0415</wheel_radius>
+            <odom_publish_frequency>50</odom_publish_frequency>
+            <frame_id>odom</frame_id>
+            <child_frame_id>base_link</child_frame_id>
+            <topic>/cmd_vel</topic>
+            <max_linear_acceleration>10</max_linear_acceleration>
+            <min_linear_acceleration>-10</min_linear_acceleration>
+            <max_angular_acceleration>10</max_angular_acceleration>
+            <min_angular_acceleration>-10</min_angular_acceleration>
+            <max_linear_velocity>0.5</max_linear_velocity>
+            <min_linear_velocity>-0.5</min_linear_velocity>
+            <max_angular_velocity>1</max_angular_velocity>
+            <min_angular_velocity>-1</min_angular_velocity>
+        </plugin>
+    </gazebo>
+    <!-- 关节状态发布 -->
+    <gazebo>
+        <plugin filename="ignition-gazebo-joint-state-publisher-system"
+        name="ignition::gazebo::systems::JointStatePublisher">
+        </plugin>
+    </gazebo>
+ 
+</robot>

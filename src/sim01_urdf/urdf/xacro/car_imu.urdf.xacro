@@ -1,0 +1,32 @@
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+<!-- IMU -->
+  <link name="imu_link">
+  <!-- 视觉外观 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- 几何中心为坐标系原点 -->
+      <geometry>
+        <!-- 单位：米，长宽20mm=0.02m，高8.2mm=0.0082m -->
+        <box size="0.02 0.02 0.0082"/>
+      </geometry>
+      <!-- 修改颜色为黑灰色 -->
+      <material name="dark_gray">
+        <color rgba="0.2 0.2 0.2 1"/> <!-- RGB=0.2, 0.2, 0.2（黑灰色） -->
+      </material>
+    </visual>
+    <!-- 碰撞属性（与视觉一致） -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.02 0.0082"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- 将IMU固定到机器人底盘 -->
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.1 0 0.166" rpy="0 0 0"/> <!-- IMU安装位置 -->
+  </joint>
+
+</robot>

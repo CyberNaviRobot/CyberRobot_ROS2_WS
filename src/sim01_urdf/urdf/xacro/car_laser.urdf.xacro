@@ -1,0 +1,34 @@
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- Laser -->
+  <link name="laser_link">
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.11"/>
+      </geometry>
+      <!-- 修改颜色为黑灰色 -->
+      <material name="dark_gray">
+        <color rgba="0.2 0.2 0.2 1"/> <!-- RGB=0.2, 0.2, 0.2（黑灰色） -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <!-- 碰撞模型与视觉一致 -->
+        <cylinder radius="0.05" length="0.11"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="laser_link" />
+    <origin xyz="0.05 0 0.235" rpy="0 0 0" /> <!-- 激光雷达位置0.05 0 0.165是雷达平面位置 -->
+  </joint>
+
+</robot>

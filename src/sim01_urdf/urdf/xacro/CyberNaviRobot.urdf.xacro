@@ -1,0 +1,7 @@
+<robot name="CyberNaviRobot" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:include filename="$(find sim01_urdf)/urdf/urdf/car_base.urdf"/>
+    <xacro:include filename="car_imu.urdf.xacro"/>
+    <xacro:include filename="car_laser.urdf.xacro"/>
+    <xacro:include filename="$(find sim01_urdf)/urdf/xacro/gazebo/move_control.urdf.xacro"/>
+    <xacro:include filename="$(find sim01_urdf)/urdf/xacro/gazebo/sensors_plugin.urdf.xacro"/>
+</robot>

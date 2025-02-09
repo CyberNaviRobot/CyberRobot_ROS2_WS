@@ -16,7 +16,7 @@ def generate_launch_description():
 
     # launch的参数的优先级比yaml的参数优先级高
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
-    map_yaml_path = LaunchConfiguration('map',default=os.path.join(navigation2_dir,'map','my_map.yaml'))
+    map_yaml_path = LaunchConfiguration('map',default=os.path.join(navigation2_dir,'map','house.yaml'))
     nav2_param_path = LaunchConfiguration('params_file',default=os.path.join(navigation2_dir,'params','nav2.yaml'))
 
     return LaunchDescription([

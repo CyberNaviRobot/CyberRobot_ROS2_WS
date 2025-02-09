@@ -1,0 +1,4 @@
+ImuNode_node_cpp:  # 节点名称
+  ros__parameters:
+    device_name: "/dev/ttyUSB_IMU"
+    baud_rate: 115200

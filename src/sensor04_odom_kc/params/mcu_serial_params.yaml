@@ -1,0 +1,4 @@
+Odom_KC_Node:  # 节点名称
+  ros__parameters:
+    device_name: "/dev/ttyACM_MCU"
+    baud_rate: 115200

@@ -128,8 +128,8 @@ private:
           //由于在ROS2中，node是局部变量，所以发布方只能在node类里，故Data_Apply不写任何东西，直接在接收下面的回调函数里实现功能。
           if(serial_pack_.rx.data.cmd == 0x01)
           {
-            RCLCPP_INFO(this->get_logger(), "\n");
-            RCLCPP_INFO(this->get_logger(), "以下是电机编码器的数据：");
+            RCLCPP_DEBUG(this->get_logger(), "\n");
+            RCLCPP_DEBUG(this->get_logger(), "以下是电机编码器的数据：");
 
             // 存储电机速度数据
             received_encoder_wheel_velocities_[0] = serial_pack_.rx.data.fp32_buffer[0];  // 电机 0 速度

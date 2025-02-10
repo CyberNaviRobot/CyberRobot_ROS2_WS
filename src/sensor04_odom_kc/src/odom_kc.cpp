@@ -79,25 +79,28 @@ private:
 
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub_;
 
-  // 四个轮子的速度(对应单片机的顺序)（单位：rpm）
-  fp32 received_encoder_wheel_velocities_[4] = {0.0, 0.0, 0.0, 0.0};
-  // 四个轮子的速度(对应单片机的顺序)（单位：m/s）
-  fp32 encoder_wheel_velocities_[4] = {0.0, 0.0, 0.0, 0.0};  
+  // // 四个轮子的速度(对应单片机的顺序)（单位：rpm）
+  // fp32 received_encoder_wheel_velocities_[4] = {0.0, 0.0, 0.0, 0.0};
+  // // 四个轮子的速度(对应单片机的顺序)（单位：m/s）
+  // fp32 encoder_wheel_velocities_[4] = {0.0, 0.0, 0.0, 0.0};  
 
-  // 四个轮子的速度(对应单片机的顺序)（单位：2000pc）
-  fp32 received_encoder_wheel_angle_[4] = {0.0, 0.0, 0.0, 0.0};
+  // // 四个轮子的速度(对应单片机的顺序)（单位：2000pc）
+  // fp32 received_encoder_wheel_angle_[4] = {0.0, 0.0, 0.0, 0.0};
 
   //麦克纳姆轮底盘参数
   const fp32 wheel_spacing = 0.093; // 轮间距（单位：米）
   const fp32 alex_spacing = 0.085; // 轮距（单位：米）
   const fp32 wheel_radius_ = 0.0375; // 轮子半径（单位：米）
   
-  fp32 x_position_ = 0.0; // x位置
-  fp32 y_position_ = 0.0; // y位置
+
+  fp32 vy=0.0,vx=0.0,vw=0.0;
   fp32 yaw_ = 0.0; // 机器人航向角（单位：弧度）
   fp32 dt_;
+
+  fp32 x_position_ = 0.0; // x位置
+  fp32 y_position_ = 0.0; // y位置
   
-  fp32 vy=0.0,vx=0.0,vw=0.0;
+
 
 
   void async_receive_message()  //创建一个函数更方便重新调用
@@ -148,12 +151,17 @@ private:
             // vw = serial_pack_.rx.data.fp32_buffer[10];
             // yaw_ = serial_pack_.rx.data.fp32_buffer[11];
             // dt_ = serial_pack_.rx.data.fp32_buffer[12];
+            // x_position_ = serial_pack_.rx.data.fp32_buffer[13];
+            // y_position_ = serial_pack_.rx.data.fp32_buffer[14];
+
 
             vx = serial_pack_.rx.data.fp32_buffer[0];
             vy = serial_pack_.rx.data.fp32_buffer[1];
             vw = serial_pack_.rx.data.fp32_buffer[2];
             yaw_ = serial_pack_.rx.data.fp32_buffer[3];
             dt_ = serial_pack_.rx.data.fp32_buffer[4];
+            x_position_ = serial_pack_.rx.data.fp32_buffer[5];
+            y_position_ = serial_pack_.rx.data.fp32_buffer[6];
 
             // 打印电机速度和位置（角度）
             for (int i = 0; i < 4; ++i) 
@@ -163,8 +171,10 @@ private:
 
                 RCLCPP_DEBUG(this->get_logger(),"线速度:x:%.6f,y:%.6f,z:%.6f",vx,vy,0.0f);
                 RCLCPP_DEBUG(this->get_logger(),"角速度:x:%.6f,y:%.6f,z:%.6f",0.0f,0.0f,vw);
-                RCLCPP_DEBUG(this->get_logger(),"欧拉角:r:%.6f,p:%.6f,y:%.6f",0.0f,0.0f,yaw_);
+                RCLCPP_DEBUG(this->get_logger(),"欧拉角(逆正顺负):r:%.6f,p:%.6f,y:%.6f",0.0f,0.0f,yaw_);
                 RCLCPP_DEBUG(this->get_logger(),"积分间隔:%.6f",dt_);
+                RCLCPP_DEBUG(this->get_logger(),"右手坐标系X坐标(前正后负):%.6f",x_position_);
+                RCLCPP_DEBUG(this->get_logger(),"右手坐标系Y坐标(左正右负):%.6f",y_position_);
             }
 
             //时间戳

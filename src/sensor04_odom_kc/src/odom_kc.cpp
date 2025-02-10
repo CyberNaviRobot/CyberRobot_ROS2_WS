@@ -129,31 +129,37 @@ private:
           if(serial_pack_.rx.data.cmd == 0x01)
           {
             RCLCPP_DEBUG(this->get_logger(), "\n");
-            RCLCPP_DEBUG(this->get_logger(), "以下是电机编码器的数据：");
+            RCLCPP_DEBUG(this->get_logger(), "以下是电机编码器的odom数据：");
 
-            // 存储电机速度数据
-            received_encoder_wheel_velocities_[0] = serial_pack_.rx.data.fp32_buffer[0];  // 电机 0 速度
-            received_encoder_wheel_velocities_[1] = serial_pack_.rx.data.fp32_buffer[1];  // 电机 1 速度
-            received_encoder_wheel_velocities_[2] = serial_pack_.rx.data.fp32_buffer[2];  // 电机 2 速度
-            received_encoder_wheel_velocities_[3] = serial_pack_.rx.data.fp32_buffer[3];  // 电机 3 速度
+            // // 存储电机速度数据
+            // received_encoder_wheel_velocities_[0] = serial_pack_.rx.data.fp32_buffer[0];  // 电机 0 速度
+            // received_encoder_wheel_velocities_[1] = serial_pack_.rx.data.fp32_buffer[1];  // 电机 1 速度
+            // received_encoder_wheel_velocities_[2] = serial_pack_.rx.data.fp32_buffer[2];  // 电机 2 速度
+            // received_encoder_wheel_velocities_[3] = serial_pack_.rx.data.fp32_buffer[3];  // 电机 3 速度
 
-            // 存储电机位置数据
-            received_encoder_wheel_angle_[0] = serial_pack_.rx.data.fp32_buffer[4];  // 电机 0 位置
-            received_encoder_wheel_angle_[1] = serial_pack_.rx.data.fp32_buffer[5];  // 电机 1 位置
-            received_encoder_wheel_angle_[2] = serial_pack_.rx.data.fp32_buffer[6];  // 电机 2 位置
-            received_encoder_wheel_angle_[3] = serial_pack_.rx.data.fp32_buffer[7];  // 电机 3 位置
+            // // 存储电机位置数据
+            // received_encoder_wheel_angle_[0] = serial_pack_.rx.data.fp32_buffer[4];  // 电机 0 位置
+            // received_encoder_wheel_angle_[1] = serial_pack_.rx.data.fp32_buffer[5];  // 电机 1 位置
+            // received_encoder_wheel_angle_[2] = serial_pack_.rx.data.fp32_buffer[6];  // 电机 2 位置
+            // received_encoder_wheel_angle_[3] = serial_pack_.rx.data.fp32_buffer[7];  // 电机 3 位置
 
-            vx = serial_pack_.rx.data.fp32_buffer[8];
-            vy = serial_pack_.rx.data.fp32_buffer[9];
-            vw = serial_pack_.rx.data.fp32_buffer[10];
-            yaw_ = serial_pack_.rx.data.fp32_buffer[11];
-            dt_ = serial_pack_.rx.data.fp32_buffer[12];
+            // vx = serial_pack_.rx.data.fp32_buffer[8];
+            // vy = serial_pack_.rx.data.fp32_buffer[9];
+            // vw = serial_pack_.rx.data.fp32_buffer[10];
+            // yaw_ = serial_pack_.rx.data.fp32_buffer[11];
+            // dt_ = serial_pack_.rx.data.fp32_buffer[12];
+
+            vx = serial_pack_.rx.data.fp32_buffer[0];
+            vy = serial_pack_.rx.data.fp32_buffer[1];
+            vw = serial_pack_.rx.data.fp32_buffer[2];
+            yaw_ = serial_pack_.rx.data.fp32_buffer[3];
+            dt_ = serial_pack_.rx.data.fp32_buffer[4];
 
             // 打印电机速度和位置（角度）
             for (int i = 0; i < 4; ++i) 
             {
-                RCLCPP_DEBUG(this->get_logger(), "%d号电机的速度: %.6f RPM, 位置: %.6f (2000pc)",
-                            i, received_encoder_wheel_velocities_[i], received_encoder_wheel_angle_[i]);
+                // RCLCPP_DEBUG(this->get_logger(), "%d号电机的速度: %.6f RPM, 位置: %.6f (2000pc)",
+                //             i, received_encoder_wheel_velocities_[i], received_encoder_wheel_angle_[i]);
 
                 RCLCPP_DEBUG(this->get_logger(),"线速度:x:%.6f,y:%.6f,z:%.6f",vx,vy,0.0f);
                 RCLCPP_DEBUG(this->get_logger(),"角速度:x:%.6f,y:%.6f,z:%.6f",0.0f,0.0f,vw);

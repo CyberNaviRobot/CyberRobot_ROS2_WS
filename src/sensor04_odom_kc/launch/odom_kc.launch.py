@@ -16,5 +16,6 @@ def generate_launch_description():
             executable='odom_kc',
             name='Odom_KC_Node',  # 必须与YAML中的键一致
             parameters=[params_file]
+            # arguments=['--ros-args', '--log-level', 'debug']
         )
     ])

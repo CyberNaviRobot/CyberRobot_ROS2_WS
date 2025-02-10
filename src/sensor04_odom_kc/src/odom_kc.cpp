@@ -131,8 +131,8 @@ private:
           //由于在ROS2中，node是局部变量，所以发布方只能在node类里，故Data_Apply不写任何东西，直接在接收下面的回调函数里实现功能。
           if(serial_pack_.rx.data.cmd == 0x01)
           {
-            RCLCPP_DEBUG(this->get_logger(), "\n");
-            RCLCPP_DEBUG(this->get_logger(), "以下是电机编码器的odom数据：");
+            RCLCPP_INFO(this->get_logger(), "\n");
+            RCLCPP_INFO(this->get_logger(), "以下是电机编码器的odom数据：");
 
             // // 存储电机速度数据
             // received_encoder_wheel_velocities_[0] = serial_pack_.rx.data.fp32_buffer[0];  // 电机 0 速度
@@ -168,14 +168,15 @@ private:
             {
                 // RCLCPP_DEBUG(this->get_logger(), "%d号电机的速度: %.6f RPM, 位置: %.6f (2000pc)",
                 //             i, received_encoder_wheel_velocities_[i], received_encoder_wheel_angle_[i]);
-
-                RCLCPP_DEBUG(this->get_logger(),"线速度:x:%.6f,y:%.6f,z:%.6f",vx,vy,0.0f);
-                RCLCPP_DEBUG(this->get_logger(),"角速度:x:%.6f,y:%.6f,z:%.6f",0.0f,0.0f,vw);
-                RCLCPP_DEBUG(this->get_logger(),"欧拉角(逆正顺负):r:%.6f,p:%.6f,y:%.6f",0.0f,0.0f,yaw_);
-                RCLCPP_DEBUG(this->get_logger(),"积分间隔:%.6f",dt_);
-                RCLCPP_DEBUG(this->get_logger(),"右手坐标系X坐标(前正后负):%.6f",x_position_);
-                RCLCPP_DEBUG(this->get_logger(),"右手坐标系Y坐标(左正右负):%.6f",y_position_);
             }
+            
+            RCLCPP_DEBUG(this->get_logger(),"线速度:x:%.6f,y:%.6f,z:%.6f",vx,vy,0.0f);
+            RCLCPP_DEBUG(this->get_logger(),"角速度:x:%.6f,y:%.6f,z:%.6f",0.0f,0.0f,vw);
+            RCLCPP_DEBUG(this->get_logger(),"欧拉角(逆正顺负):r:%.6f,p:%.6f,y:%.6f",0.0f,0.0f,yaw_);
+            RCLCPP_DEBUG(this->get_logger(),"积分间隔:%.6f",dt_);
+            RCLCPP_DEBUG(this->get_logger(),"右手坐标系X坐标(前正后负):%.6f",x_position_);
+            RCLCPP_DEBUG(this->get_logger(),"右手坐标系Y坐标(左正右负):%.6f",y_position_);
+
 
             //时间戳
             odom_msg.header.stamp = this->get_clock()->now();

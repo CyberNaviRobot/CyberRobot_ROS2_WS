@@ -25,7 +25,7 @@ def generate_launch_description():
     )
     mycar_desc = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(mycar_desc_pkg,"launch","robot_desc.py")
+            os.path.join(mycar_desc_pkg,"launch","robot_desc.launch.py")
         )
     )
     spawn = Node(package="ros_gz_sim", executable="create",

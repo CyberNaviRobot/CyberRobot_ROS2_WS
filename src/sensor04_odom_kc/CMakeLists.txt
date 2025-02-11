@@ -13,7 +13,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 
-add_executable(odom_kc src/odom_kc.cpp src/serial_pack.cpp)
+add_executable(odom_kc src/odom_kc.cpp src/serial_pack.cpp src/odom_mecX4.cpp)
 target_include_directories(odom_kc PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
